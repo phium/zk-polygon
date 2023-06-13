@@ -1,0 +1,40 @@
+zk노드 by 폴리곤  (https://wiki.polygon.technology/docs/zkEVM/setup-production-node/) / 학습용
+필요한 것
+알케미 - 레이어1 이더 메인넷 API, 스타크넷 고리 API - 현재 테스트넷에서 진행 및 geth 요구
+
+
+서버 셋업
+서버에 필요한 패키지를 설치합니다.
+
+sudo apt update && sudo apt upgrade -y
+sudo apt install pkg-config curl git build-essential libssl-dev -y
+sudo apt install screen -y
+
+도커를 설치하고 권한을 부여합니다.
+
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+apt install unzip
+설치 및 환경
+환경 변수를 설정합니다.
+export ZKEVM_NET=testnet
+export ZKEVM_DIR=./ZKEVM
+export ZKEVM_CONFIG_DIR=./ZKEVM_CONFIG
+
+zkevm_config 디렉토리를 생성합니다.
+mkdir $ZKEVM_CONFIG_DIR
+
+아티팩트를 다운로드.
+curl -L https://github.com/0xPolygonHermez/zkevm-node/releases/latest/download/$ZKEVM_NET.zip > $ZKEVM_NET.zip && unzip -o $ZKEVM_NET.zip -d $ZKEVM_DIR && rm $ZKEVM_NET.zip
+
+
+환경 변수 파일을 복사및 복붙
+cp $ZKEVM_DIR/$ZKEVM_NET/example.env $ZKEVM_CONFIG_DIR/.env
+
+파일 수정
+nano $ZKEVM_CONFIG_DIR/.env
+
+zkevm_node_etherman_url 항목에 알케미에서 얻은 API를 입력하고 저장합니다. - 사진 첫번째
+
+실행
+다음 명령어를 실행하여 ZKEVM을 실행합니다.
